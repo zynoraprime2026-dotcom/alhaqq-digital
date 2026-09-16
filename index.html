@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Haqq Digital — Web & AI Services · Phone Accessories · Electricals</title>
+<meta name="description" content="Affordable websites, online learning tools and payment setup for mosques, Islamic schools and Muslim businesses in Ghana.">
+<link rel="icon" href="https://media.base44.com/images/public/6a0ecd2eb70977071e97261c/7fdc9d0a1_generated_image.png">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07130e; --bg2:#0c2018; --card:#0f2a1f; --line:rgba(212,175,55,.25);
+    --gold:#d4af37; --gold2:#f0d989; --cream:#f5f0e1; --muted:#a8c0b0; --green:#1d7a52;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--cream);line-height:1.7}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(7,19,14,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand img{width:46px;height:46px;border-radius:50%;border:1px solid var(--line)}
+  .brand b{font-size:1.05rem;letter-spacing:.4px}
+  .brand b span{color:var(--gold)}
+  .nav-links{display:flex;gap:26px}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:.2s}
+  .nav-links a:hover{color:var(--gold)}
+  @media(max-width:720px){.nav-links{display:none}}
+  /* HERO */
+  header{position:relative;overflow:hidden;text-align:center;padding:90px 22px 100px;
+    background:
+      radial-gradient(ellipse 60% 45% at 50% 0%,rgba(29,122,82,.35),transparent 70%),
+      repeating-linear-gradient(45deg,transparent 0 40px,rgba(212,175,55,.03) 40px 41px),
+      repeating-linear-gradient(-45deg,transparent 0 40px,rgba(212,175,55,.03) 40px 41px),var(--bg)}
+  .hero-ar{font-family:'Amiri',serif;font-size:1.5rem;color:var(--gold2);margin-bottom:14px}
+  .hero-logo{width:110px;height:110px;border-radius:50%;margin:0 auto 26px;box-shadow:0 0 60px rgba(212,175,55,.35);border:1px solid var(--line)}
+  h1{font-size:clamp(1.9rem,5vw,3.1rem);font-weight:700;line-height:1.25}
+  h1 span{color:var(--gold)}
+  .hero-sub{max-width:640px;margin:20px auto 0;color:var(--muted);font-size:1.05rem;font-weight:300}
+  .cta-row{display:flex;gap:16px;justify-content:center;margin-top:38px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:14px 30px;border-radius:50px;text-decoration:none;font-weight:600;font-size:.95rem;transition:.25s}
+  .btn-gold{background:linear-gradient(135deg,var(--gold),#b8912a);color:#1a1405}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(212,175,55,.35)}
+  .btn-out{border:1px solid var(--gold);color:var(--gold)}
+  .btn-out:hover{background:rgba(212,175,55,.1)}
+  /* SECTIONS */
+  section{padding:80px 0}
+  .kicker{text-align:center;color:var(--gold);font-size:.8rem;letter-spacing:3px;text-transform:uppercase;font-weight:600}
+  h2{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);margin:10px 0 50px}
+  .grid{display:grid;gap:22px}
+  .g4{grid-template-columns:repeat(4,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}}
+  @media(max-width:560px){.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 26px;transition:.25s}
+  .card:hover{transform:translateY(-4px);border-color:rgba(212,175,55,.5)}
+  .card .ic{font-size:2rem;margin-bottom:14px}
+  .card h3{font-size:1.05rem;margin-bottom:10px;color:var(--gold2)}
+  .card p{font-size:.88rem;color:var(--muted);font-weight:300}
+  /* WHY */
+  .why{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .why .card{text-align:center}
+  .why .num{font-family:'Amiri',serif;font-size:1.7rem;color:var(--gold)}
+  /* SHOP */
+  .shop-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:34px;flex-wrap:wrap}
+  .shop-tabs a{padding:10px 22px;border-radius:50px;border:1px solid var(--line);color:var(--gold2);text-decoration:none;font-size:.88rem;transition:.2s}
+  .shop-tabs a:hover,.shop-tabs a.active{background:rgba(212,175,55,.12);border-color:var(--gold)}
+  .prod{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 18px;text-align:center;transition:.25s}
+  .prod:hover{transform:translateY(-4px);border-color:rgba(212,175,55,.5)}
+  .prod .ic{font-size:2.1rem;margin-bottom:10px}
+  .prod h3{font-size:.92rem;color:var(--cream);min-height:42px}
+  .prod .desc{font-size:.76rem;color:var(--muted);font-weight:300;margin:6px 0 10px;min-height:36px}
+  .prod .amt{color:var(--gold);font-weight:700;font-size:1.15rem;margin-bottom:14px}
+  .prod a{display:block;padding:9px;border-radius:8px;background:var(--green);color:#fff;text-decoration:none;font-size:.8rem;font-weight:600;transition:.2s}
+  .prod a:hover{background:#23915f}
+  .shop-note{text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px;font-weight:300}
+  /* PRICING */
+  .price{text-align:center}
+  .price .amt{font-size:2.1rem;font-weight:700;color:var(--gold)}
+  .price .amt small{font-size:.85rem;color:var(--muted);font-weight:300}
+  .price ul{list-style:none;margin:18px 0 26px;text-align:left}
+  .price li{font-size:.85rem;color:var(--muted);padding:6px 0;border-bottom:1px dashed rgba(212,175,55,.15)}
+  .price li::before{content:"✓ ";color:var(--gold)}
+  .note{text-align:center;margin-top:34px;color:var(--gold2);font-size:.95rem}
+  /* QUOTE */
+  .quote{text-align:center;padding:70px 22px;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .quote .ar{font-family:'Amiri',serif;font-size:clamp(1.4rem,4vw,2.1rem);color:var(--gold2)}
+  .quote .tr{color:var(--muted);font-style:italic;margin-top:14px;font-size:.95rem}
+  .quote .ref{margin-top:10px;font-size:.8rem;color:var(--gold);letter-spacing:1px}
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:760px;margin:0 auto}
+  @media(max-width:700px){.contact-grid{grid-template-columns:1fr}}
+  .contact-grid a{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;text-decoration:none;color:var(--cream);transition:.25s}
+  .contact-grid a:hover{border-color:var(--gold)}
+  .contact-grid .ic{font-size:1.8rem}
+  .contact-grid small{display:block;color:var(--muted);font-size:.78rem}
+  .contact-grid b{color:var(--gold2)}
+  /* FOOTER */
+  footer{padding:34px 0;text-align:center;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line)}
+  footer .ar{font-family:'Amiri',serif;color:var(--gold)}
+  /* FLOATING WA */
+  .wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#1d7a52;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.6rem;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:60;transition:.25s}
+  .wa-float:hover{transform:scale(1.1)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand">
+      <img src="https://media.base44.com/images/public/6a0ecd2eb70977071e97261c/7fdc9d0a1_generated_image.png" alt="Al-Haqq Digital logo">
+      <b>AL-HAQQ <span>DIGITAL</span></b>
+    </div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#shop">Shop</a>
+      <a href="#why">Why Us</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="hero-ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  <img class="hero-logo" src="https://media.base44.com/images/public/6a0ecd2eb70977071e97261c/7fdc9d0a1_generated_image.png" alt="Al-Haqq Digital emblem">
+  <h1>Digital Solutions<br>for the <span>Ummah</span></h1>
+  <p class="hero-sub">We build affordable, modern websites and AI tools for mosques, Islamic schools, and Muslim businesses in Ghana — plus quality phone accessories and electricals delivered to your door. Locally built, sensitive to Islamic values.</p>
+  <div class="cta-row">
+    <a class="btn btn-gold" href="https://wa.me/233541821537">Get Started on WhatsApp</a>
+    <a class="btn btn-out" href="#shop">Visit Our Shop</a>
+  </div>
+</header>
+
+<section id="services">
+  <div class="wrap">
+    <div class="kicker">What We Do</div>
+    <h2>Our Services</h2>
+    <div class="grid g3">
+      <div class="card"><div class="ic">🕌</div><h3>Mosque & School Websites</h3><p>Prayer times, event announcements, hajj & Ramadan information, donation details — everything your community needs in one place.</p></div>
+      <div class="card"><div class="ic">📖</div><h3>Online Learning Tools</h3><p>Qur'an and Arabic study aids, interactive lessons for madrasa students, and progress tracking parents can follow.</p></div>
+      <div class="card"><div class="ic">💳</div><h3>Donations & Payments</h3><p>Secure Mobile Money (MoMo) and card payments for sadaqah, zakat collection, and school fees.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="why">
+  <div class="wrap">
+    <div class="kicker">Why Choose Us</div>
+    <h2>Built With the Ummah in Mind</h2>
+    <div class="grid g3">
+      <div class="card"><div class="num">١</div><h3>Ghana-Based</h3><p>We understand our communities, our realities, and our needs. Locally built, locally supported.</p></div>
+      <div class="card"><div class="num">٢</div><h3>Islamic Values</h3><p>Every design and feature is made with respect for Islamic principles — from content to conduct.</p></div>
+      <div class="card"><div class="num">٣</div><h3>Proven Technology</h3><p>Our portfolio includes AI applications serving users across Africa. Serious tools at community prices.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="shop">
+  <div class="wrap">
+    <div class="kicker">Al-Haqq Shop</div>
+    <h2>Phones, Accessories & Electricals</h2>
+    <div class="shop-tabs">
+      <a class="active" href="javascript:void(0)" onclick="showCat('acc',this)">📱 Accessories</a>
+      <a href="javascript:void(0)" onclick="showCat('elec',this)">💡 Electricals</a>
+    </div>
+    <div class="grid g4" id="acc">
+      <div class="prod"><div class="ic">🔌</div><h3>Fast Charger 20W (USB-C)</h3><div class="desc">Quick-charge adapter — Samsung, Tecno, Infinix</div><div class="amt">₵60</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Fast%20Charger%2020W%20-%20GHS60">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">🧵</div><h3>USB-C Fast Cable (1m)</h3><div class="desc">Durable braided charging &amp; data cable</div><div class="amt">₵25</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20USB-C%20Fast%20Cable%20-%20GHS25">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">🎧</div><h3>TWS Earbuds (Pro)</h3><div class="desc">True wireless, noise isolation, long battery</div><div class="amt">₵120</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20TWS%20Earbuds%20-%20GHS120">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">🔋</div><h3>Power Bank 20,000mAh</h3><div class="desc">Dual USB output, charges your phone 4-5 times</div><div class="amt">₵180</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Power%20Bank%2020000mAh%20-%20GHS180">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">📱</div><h3>Phone Case (all models)</h3><div class="desc">Tecno, Infinix, Samsung, iPhone — shockproof</div><div class="amt">₵30</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20a%20Phone%20Case%20-%20GHS30%20(my%20model%3A%20)">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">🛡️</div><h3>Tempered Glass Protector</h3><div class="desc">9H hardness, full glue, all models</div><div class="amt">₵20</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20a%20Tempered%20Glass%20Protector%20-%20GHS20">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">🎧</div><h3>Wired Earpiece (3.5mm)</h3><div class="desc">Clear sound with mic; Type-C version available</div><div class="amt">₵20</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Wired%20Earpiece%20-%20GHS20">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">📍</div><h3>Phone Holders &amp; Stands</h3><div class="desc">Desk, car vent &amp; ring holders</div><div class="amt">₵25</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20a%20Phone%20Holder%20-%20GHS25">Order on WhatsApp</a></div>
+    </div>
+    <div class="grid g4" id="elec" style="display:none">
+      <div class="prod"><div class="ic">💡</div><h3>LED Bulb 12W (E27)</h3><div class="desc">Bright energy-saving, warm or white</div><div class="amt">₵18</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20LED%20Bulb%2012W%20-%20GHS18">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">🔌</div><h3>Extension Board (4-way)</h3><div class="desc">With switch &amp; surge protection, 2m cable</div><div class="amt">₵70</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Extension%20Board%204-way%20-%20GHS70">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">🔦</div><h3>Rechargeable Torch/Lantern</h3><div class="desc">Long-life battery — perfect for dumsor</div><div class="amt">₵55</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Rechargeable%20Torch%20-%20GHS55">Order on WhatsApp</a></div>
+      <div class="prod"><div class="ic">🌀</div><h3>Rechargeable Fan (Table)</h3><div class="desc">Battery-powered fan with LED light</div><div class="amt">₵150</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Rechargeable%20Table%20Fan%20-%20GHS150">Order on WhatsApp</a></div>
+    </div>
+    <p class="shop-note">🚚 Rider delivery within Accra (₵15-25) · nationwide parcel (₵25-40) · pay by MoMo or on delivery<br>Tap any product to order instantly on WhatsApp — we confirm availability and price.</p>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="kicker">Affordable for the Ummah</div>
+    <h2>Simple, Transparent Pricing</h2>
+    <div class="grid g3">
+      <div class="card price"><h3>Starter Website</h3><div class="amt">₵800<small>+</small></div>
+        <ul><li>Up to 5 pages</li><li>Prayer times & events section</li><li>WhatsApp contact button</li><li>Mobile-friendly design</li><li>Delivered in 2 weeks</li></ul>
+        <a class="btn btn-out" href="https://wa.me/233541821537">Enquire</a>
+      </div>
+      <div class="card price"><h3>Care & Maintenance</h3><div class="amt">₵100<small>/month</small></div>
+        <ul><li>Content updates</li><li>Technical support</li><li>Monthly backups</li><li>Seasonal updates (Ramadan, Hajj)</li><li>Cancel anytime</li></ul>
+        <a class="btn btn-out" href="https://wa.me/233541821537">Enquire</a>
+      </div>
+    </div>
+    <p class="note">✦ Special discounts available for mosques and charitable organizations, in shaa Allah ✦</p>
+  </div>
+</section>
+
+<div class="quote">
+  <div class="ar">وَقُلْ جَاءَ الْحَقُّ وَزَهَقَ الْبَاطِلُ ۚ إِنَّ الْبَاطِلَ كَانَ زَهُوقًا</div>
+  <div class="tr">"And say: Truth has come and falsehood has departed. Indeed falsehood is bound to depart."</div>
+  <div class="ref">SURAH AL-ISRA 17:81</div>
+</div>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="kicker">Get In Touch</div>
+    <h2>Let's Build Something Beneficial</h2>
+    <div class="contact-grid">
+      <a href="https://wa.me/233541821537"><span class="ic">📱</span><span><small>WhatsApp</small><b>+233 54 182 1537</b></span></a>
+      <a href="mailto:rahimsadiq02@gmail.com"><span class="ic">✉️</span><span><small>Email</small><b>rahimsadiq02@gmail.com</b></span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ar">الأَحَقّ دِيجِيتَال</div>
+  AL-HAQQ DIGITAL — Web &amp; AI Services · Phone Accessories · Electricals · Ghana 🇬🇭<br>
+  "Intelligence with Purpose"
+</footer>
+
+<a class="wa-float" href="https://wa.me/233541821537" title="Chat on WhatsApp">💬</a>
+
+<script>
+function showCat(id, el){
+  document.getElementById('acc').style.display = id==='acc' ? 'grid' : 'none';
+  document.getElementById('elec').style.display = id==='elec' ? 'grid' : 'none';
+  document.querySelectorAll('.shop-tabs a').forEach(function(a){a.classList.remove('active')});
+  el.classList.add('active');
+}
+</script>
+</body>
+</html>
