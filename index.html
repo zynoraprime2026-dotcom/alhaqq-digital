@@ -74,6 +74,11 @@
   .prod a{display:block;padding:9px;border-radius:8px;background:var(--green);color:#fff;text-decoration:none;font-size:.8rem;font-weight:600;transition:.2s}
   .prod a:hover{background:#23915f}
   .shop-note{text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px;font-weight:300}
+  .deliv{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
+  @media(max-width:700px){.deliv{grid-template-columns:1fr}}
+  .deliv .card h3{text-align:center}
+  .deliv p{font-size:.85rem}
+  .deliv b{color:var(--gold2)}
   /* PRICING */
   .price{text-align:center}
   .price .amt{font-size:2.1rem;font-weight:700;color:var(--gold)}
@@ -181,6 +186,10 @@
       <div class="prod"><div class="ic">🌀</div><h3>Rechargeable Fan (Table)</h3><div class="desc">Battery-powered fan with LED light</div><div class="amt">₵150</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Rechargeable%20Table%20Fan%20-%20GHS150">Order on WhatsApp</a></div>
     </div>
     <p class="shop-note">🚚 Rider delivery within Accra (₵15-25) · nationwide parcel (₵25-40) · pay by MoMo or on delivery<br>Tap any product to order instantly on WhatsApp — we confirm availability and price.</p>
+    <div class="deliv">
+      <div class="card"><h3>🚚 Delivery</h3><p><b>Within Accra:</b> rider delivery in 1–2 hours (₵15–25 fee). Pay cash on delivery or MoMo.<br><br><b>Nationwide:</b> we send your parcel by VIP / STC / ABP bus or Ghana Post EMS (₵25–40). Collect at your local station with a valid ID — usually same or next day.</p></div>
+      <div class="card"><h3>💳 Payment</h3><p><b>Accra orders:</b> pay on delivery or by Mobile Money.<br><br><b>Outside orders:</b> full payment by MoMo <b>before</b> we ship. Send payment, we verify it, then dispatch your parcel with a waybill number sent to your WhatsApp.<br><br>MoMo: +233 54 182 1537 (Al-Haqq)</p></div>
+    </div>
   </div>
 </section>
 
