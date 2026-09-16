@@ -79,6 +79,19 @@
   .deliv .card h3{text-align:center}
   .deliv p{font-size:.85rem}
   .deliv b{color:var(--gold2)}
+  /* BANNER + TRUST + STORY */
+  .shop-banner{width:100%;border-radius:16px;border:1px solid var(--line);margin-bottom:38px;display:block}
+  .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+  @media(max-width:700px){.trust{grid-template-columns:repeat(2,1fr)}}
+  .trust .t{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 10px;text-align:center}
+  .trust .t .ic{font-size:1.5rem}
+  .trust .t b{display:block;color:var(--gold2);font-size:.82rem;margin-top:6px}
+  .trust .t small{color:var(--muted);font-size:.7rem;font-weight:300}
+  .story{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+  @media(max-width:700px){.story{grid-template-columns:1fr}}
+  .story p{color:var(--muted);font-size:.92rem;font-weight:300}
+  .story b{color:var(--gold2)}
+  .story .ar{font-family:'Amiri',serif;color:var(--gold);font-size:1.3rem;margin-top:18px}
   /* PRICING */
   .price{text-align:center}
   .price .amt{font-size:2.1rem;font-weight:700;color:var(--gold)}
@@ -165,6 +178,7 @@
   <div class="wrap">
     <div class="kicker">Al-Haqq Shop</div>
     <h2>Phones, Accessories & Electricals</h2>
+    <img class="shop-banner" src="https://media.base44.com/images/public/6a0ecd2eb70977071e97261c/bb0053db3_generated_image.png" alt="Al-Haqq shop product banner">
     <div class="shop-tabs">
       <a class="active" href="javascript:void(0)" onclick="showCat('acc',this)">📱 Accessories</a>
       <a href="javascript:void(0)" onclick="showCat('elec',this)">💡 Electricals</a>
@@ -184,6 +198,12 @@
       <div class="prod"><div class="ic">🔌</div><h3>Extension Board (4-way)</h3><div class="desc">With switch &amp; surge protection, 2m cable</div><div class="amt">₵70</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Extension%20Board%204-way%20-%20GHS70">Order on WhatsApp</a></div>
       <div class="prod"><div class="ic">🔦</div><h3>Rechargeable Torch/Lantern</h3><div class="desc">Long-life battery — perfect for dumsor</div><div class="amt">₵55</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Rechargeable%20Torch%20-%20GHS55">Order on WhatsApp</a></div>
       <div class="prod"><div class="ic">🌀</div><h3>Rechargeable Fan (Table)</h3><div class="desc">Battery-powered fan with LED light</div><div class="amt">₵150</div><a href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20I%20want%20to%20order%20the%20Rechargeable%20Table%20Fan%20-%20GHS150">Order on WhatsApp</a></div>
+    </div>
+    <div class="trust">
+      <div class="t"><div class="ic">✅</div><b>Registered Business</b><small>Ya Hayul Quayum Ventures · BN281640422</small></div>
+      <div class="t"><div class="ic">🛡️</div><b>Genuine Products</b><small>Quality checked before dispatch</small></div>
+      <div class="t"><div class="ic">🚚</div><b>Fast Delivery</b><small>Accra 1-2 hrs · Nationwide 1-2 days</small></div>
+      <div class="t"><div class="ic">💳</div><b>Secure MoMo Pay</b><small>Business-named wallet · Safe payment</small></div>
     </div>
     <p class="shop-note">🚚 Rider delivery within Accra (₵15-25) · nationwide parcel (₵25-40) · pay by MoMo or on delivery<br>Tap any product to order instantly on WhatsApp — we confirm availability and price.</p>
     <div class="deliv">
@@ -216,6 +236,17 @@
   <div class="tr">"And say: Truth has come and falsehood has departed. Indeed falsehood is bound to depart."</div>
   <div class="ref">SURAH AL-ISRA 17:81</div>
 </div>
+
+<section id="story">
+  <div class="wrap">
+    <div class="kicker">Who We Are</div>
+    <h2>Our Story</h2>
+    <div class="story">
+      <p><b>Al-Haqq Digital</b> was founded in Accra with one conviction: our mosques, schools and Muslim businesses deserve world-class technology at community prices — built by people who understand our values.<br><br>Today we build modern websites and AI tools, and supply quality phone accessories and electricals to homes and businesses across Ghana — with honest prices, real support, and barakah in every transaction.</p>
+      <p class="ar">وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ<br><span style="font-size:.75rem;color:#a8c0b0">"And my success is only by Allah." — Hud 11:88</span></p>
+    </div>
+  </div>
+</section>
 
 <section id="contact">
   <div class="wrap">
