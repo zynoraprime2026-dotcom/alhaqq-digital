@@ -161,6 +161,8 @@
 .share-wa:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(29,122,82,.45)}
 .share-cp{background:transparent;border:1px solid var(--gold);color:var(--gold)}
 .share-cp:hover{background:rgba(212,175,55,.12)}
+.share-top{margin:22px 0 0}
+.share-top .share-btn{padding:10px 20px;font-size:.85rem}
 .wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#1d7a52;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.6rem;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:60;transition:.25s}
   .wa-float:hover{transform:scale(1.1)}
 </style>
@@ -191,6 +193,11 @@
   <div class="cta-row">
     <a class="btn btn-gold" href="https://wa.me/233541821537">Get Started on WhatsApp</a>
     <a class="btn btn-out" href="#shop">Visit Our Shop</a>
+  </div>
+
+  <div class="share-bar share-top">
+    <a class="share-btn share-wa" href="whatsapp://send?text=Check%20out%20Al-Haqq%20Digital%20%E2%80%94%20Web%20%26%20AI%20Services%2C%20Phone%20Accessories%20%26%20Electricals%20%F0%9F%87%AC%F0%9F%87%AD%20https%3A%2F%2Falhaqq-digital.vercel.app" target="_blank">💬 Share on WhatsApp</a>
+    <button class="share-btn share-cp" onclick="doShare(this)">🔗 Share / Copy link</button>
   </div>
 </header>
 
@@ -305,7 +312,7 @@
 
 <div class="share-bar">
   <a class="share-btn share-wa" href="whatsapp://send?text=Check%20out%20Al-Haqq%20Digital%20%E2%80%94%20Web%20%26%20AI%20Services%2C%20Phone%20Accessories%20%26%20Electricals%20%F0%9F%87%AC%F0%9F%87%AD%20https%3A%2F%2Falhaqq-digital.vercel.app" target="_blank">💬 Share on WhatsApp</a>
-  <button class="share-btn share-cp" onclick="navigator.share?navigator.share({title:'Al-Haqq Digital',text:'Web &amp; AI Services · Phone Accessories · Electricals — Tarkwa, Ghana',url:'https://alhaqq-digital.vercel.app'}).catch(()=>{}):navigator.clipboard.writeText('https://alhaqq-digital.vercel.app').then(function(){this.textContent='\u2713 Link copied!';setTimeout(function(){document.querySelector('.share-cp').textContent='\uD83D\uDD17 Share / Copy link'},2000)})">🔗 Share / Copy link</button>
+  <button class="share-btn share-cp" onclick="doShare(this)">🔗 Share / Copy link</button>
 </div>
 
 <footer>
@@ -318,6 +325,16 @@ Operated by Ya Hayul Quayum Ventures · Reg. BN281640422<br>
 <a class="wa-float" href="https://wa.me/233541821537" title="Chat on WhatsApp">💬</a>
 
 <script>
+function doShare(btn){
+  if(navigator.share){
+    navigator.share({title:'Al-Haqq Digital',text:'Web & AI Services · Phone Accessories · Electricals — Tarkwa, Ghana',url:'https://alhaqq-digital.vercel.app'}).catch(function(){});
+  }else{
+    navigator.clipboard.writeText('https://alhaqq-digital.vercel.app').then(function(){
+      var t=btn.textContent; btn.textContent='\u2713 Link copied!';
+      setTimeout(function(){btn.textContent=t},2000);
+    });
+  }
+}
 function showCat(id, el){
   document.getElementById('acc').style.display = id==='acc' ? 'grid' : 'none';
   document.getElementById('elec').style.display = id==='elec' ? 'grid' : 'none';
