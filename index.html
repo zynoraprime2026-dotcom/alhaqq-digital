@@ -155,7 +155,13 @@
   footer{padding:34px 0;text-align:center;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line)}
   footer .ar{font-family:'Amiri',serif;color:var(--gold)}
   /* FLOATING WA */
-  .wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#1d7a52;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.6rem;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:60;transition:.25s}
+  .share-bar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:34px 0 0}
+.share-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:.25s;cursor:pointer;border:none}
+.share-wa{background:#1d7a52;color:#f5f0e1}
+.share-wa:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(29,122,82,.45)}
+.share-cp{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.share-cp:hover{background:rgba(212,175,55,.12)}
+.wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#1d7a52;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.6rem;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:60;transition:.25s}
   .wa-float:hover{transform:scale(1.1)}
 </style>
 </head>
@@ -296,6 +302,11 @@
     </div>
   </div>
 </section>
+
+<div class="share-bar">
+  <a class="share-btn share-wa" href="whatsapp://send?text=Check%20out%20Al-Haqq%20Digital%20%E2%80%94%20Web%20%26%20AI%20Services%2C%20Phone%20Accessories%20%26%20Electricals%20%F0%9F%87%AC%F0%9F%87%AD%20https%3A%2F%2Falhaqq-digital.vercel.app" target="_blank">💬 Share on WhatsApp</a>
+  <button class="share-btn share-cp" onclick="navigator.share?navigator.share({title:'Al-Haqq Digital',text:'Web &amp; AI Services · Phone Accessories · Electricals — Tarkwa, Ghana',url:'https://alhaqq-digital.vercel.app'}).catch(()=>{}):navigator.clipboard.writeText('https://alhaqq-digital.vercel.app').then(function(){this.textContent='\u2713 Link copied!';setTimeout(function(){document.querySelector('.share-cp').textContent='\uD83D\uDD17 Share / Copy link'},2000)})">🔗 Share / Copy link</button>
+</div>
 
 <footer>
   <div class="ar">الأَحَقّ دِيجِيتَال</div>
