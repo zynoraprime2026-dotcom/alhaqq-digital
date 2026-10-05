@@ -29,11 +29,34 @@ h1{color:#C9A96A;font-size:1.4rem;margin:8px 0 2px}
 .ltile .t{font-size:.62rem;color:#8FB3B0;display:block;margin-top:3px}
 .result{font-size:1rem;min-height:1.4rem;margin-top:10px}
 .pill{display:inline-block;background:#C9A96A;color:#0E2A2B;border-radius:20px;padding:3px 12px;font-weight:700;font-size:.85rem}
+.toprow{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.mbtn{padding:6px 14px;border:none;border-radius:20px;background:#1E4344;color:#C9A96A;font-size:.8rem;cursor:pointer;font-weight:700;margin-top:0}
+.tlink{padding:6px 14px;border-radius:20px;background:transparent;border:1px solid #2A5556;color:#8FB3B0;font-size:.8rem;text-decoration:none;display:inline-flex;align-items:center}
+#joinbar{width:100%;max-width:420px;background:#1E4344;border-radius:14px;padding:14px;margin-bottom:14px;display:none}
+#joinbar input{width:100%;padding:10px;border:none;border-radius:10px;background:#0E2A2B;color:#F3ECDA;font-size:1rem;border:1.5px solid #2A5556;margin-top:6px}
+#joinbar .jl{font-size:.75rem;color:#8FB3B0;margin-top:8px;display:block}
+#joinbar button{margin-top:12px;width:100%;padding:12px;border:none;border-radius:10px;background:#C9A96A;color:#0E2A2B;font-weight:700;font-size:1rem;cursor:pointer}
+#joinbar .jerr{color:#E57373;font-size:.8rem;min-height:1rem;margin-top:6px}
+#badge{display:none;width:100%;max-width:420px;background:#1E4344;border-radius:20px;padding:8px 14px;font-size:.85rem;color:#C9A96A;font-weight:700;text-align:center;margin-bottom:12px}
+#badge button{background:transparent;border:none;color:#8FB3B0;cursor:pointer;font-size:.9rem;margin:0 0 0 8px;padding:0}
 </style>
 </head>
 <body>
 <h1>حروف — Huruuf Game</h1>
 <div class="sub">Learn the Arabic alphabet · for madrasa students</div>
+<div class="toprow">
+  <button class="mbtn" id="mBtn">🎓 Madrasa</button>
+  <a class="tlink" href="teacher.html">👨‍🏫 Teachers</a>
+</div>
+<div id="badge"><span id="badgeTxt"></span><button id="mLeave" title="Leave class">✕</button></div>
+<div id="joinbar">
+  <span class="jl">Class code (from your teacher)</span>
+  <input id="jCode" placeholder="e.g. S4ANYB" autocapitalize="characters" style="text-transform:uppercase">
+  <span class="jl">Your name</span>
+  <input id="jName" placeholder="e.g. Aisha">
+  <button id="jJoin">Join my class</button>
+  <div class="jerr" id="jErr"></div>
+</div>
 <div id="app">
   <div class="tabs">
     <button class="tab active" id="tPlay" onclick="showTab('play')">Play</button>
@@ -53,7 +76,49 @@ h1{color:#C9A96A;font-size:1.4rem;margin:8px 0 2px}
 </div>
 <script>
 const L=[["ا","alif"],["ب","baa"],["ت","taa"],["ث","thaa"],["ج","jeem"],["ح","haa"],["خ","khaa"],["د","daal"],["ذ","dhaal"],["ر","raa"],["ز","zaay"],["س","seen"],["ش","sheen"],["ص","saad"],["ض","daad"],["ط","taa (emphatic)"],["ظ","dhaa (emphatic)"],["ع","ayn"],["غ","ghayn"],["ف","faa"],["ق","qaaf"],["ك","kaaf"],["ل","laam"],["م","meem"],["ن","noon"],["ه","haa"],["و","waaw"],["ي","yaa"]];
+const API="https://studio-api-nqpm.onrender.com";
 let score=0,streak=0,cur=0,ans="";
+const MAD=JSON.parse(localStorage.getItem("huruuf_student")||"null");
+function madKey(){return localStorage.getItem("huruuf_key")}
+async function madSignup(){
+  const email="student+"+Math.random().toString(36).slice(2,10)+"@alhaqq.app";
+  const r=await fetch(API+"/v1/developers/signup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email})});
+  const d=await r.json();if(!d.key)throw new Error("Could not reach the server");
+  localStorage.setItem("huruuf_key",d.key);return d.key;
+}
+function logAnswer(letter,correct){
+  const m=MAD;if(!m)return;
+  fetch(API+"/v1/students/"+m.sid+"/progress",{method:"POST",headers:{"Content-Type":"application/json","X-Api-Key":madKey()},body:JSON.stringify({letter,correct})}).catch(()=>{});
+}
+function showBadge(on){
+  document.getElementById("badge").style.display=on?"block":"none";
+  document.getElementById("joinbar").style.display=on?"none":document.getElementById("joinbar").style.display;
+  if(on)document.getElementById("badgeTxt").textContent="🎓 "+MAD.name+" · "+MAD.cls;
+}
+document.getElementById("mBtn").onclick=()=>{
+  const b=document.getElementById("joinbar");
+  b.style.display=b.style.display==="block"?"none":"block";
+};
+document.getElementById("jJoin").onclick=async()=>{
+  const code=document.getElementById("jCode").value.trim(),name=document.getElementById("jName").value.trim();
+  const err=document.getElementById("jErr");err.textContent="";
+  if(!code||!name){err.textContent="Enter the class code and your name";return}
+  try{
+    if(!madKey())await madSignup();
+    const r=await fetch(API+"/v1/join",{method:"POST",headers:{"Content-Type":"application/json","X-Api-Key":madKey()},body:JSON.stringify({code,name})});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||"Could not join");
+    MAD.sid=d.student_id;MAD.name=d.student_name;MAD.cls=d.class_name;
+    localStorage.setItem("huruuf_student",JSON.stringify(MAD));
+    document.getElementById("joinbar").style.display="none";
+    showBadge(true);
+  }catch(e){err.textContent=e.message}
+};
+document.getElementById("mLeave").onclick=()=>{
+  if(document.getElementById("mLeave").dataset.c!=="1"){document.getElementById("mLeave").dataset.c="1";document.getElementById("mLeave").textContent="tap again";setTimeout(()=>{document.getElementById("mLeave").dataset.c="";document.getElementById("mLeave").textContent="✕"},2500);return}
+  localStorage.removeItem("huruuf_student");location.reload();
+};
+if(MAD&&MAD.sid)showBadge(true);
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
 function newRound(){
   cur=Math.random()*L.length|0;ans=L[cur][1];
@@ -69,6 +134,7 @@ function newRound(){
 function pick(b,o){
   document.querySelectorAll(".opt").forEach(x=>x.disabled=true);
   const r=document.getElementById("result");
+  logAnswer(L[cur][0],o===ans);
   if(o===ans){b.classList.add("good");score++;streak++;
     r.textContent="Correct! م أحسنت";r.style.color="#7BC47F";
     document.getElementById("nextBtn").textContent=streak>=5?"Next letter (🔥 streak "+streak+")":"Next letter";

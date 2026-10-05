@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Teacher Dashboard — Huruuf</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:system-ui,sans-serif;background:#0E2A2B;color:#F3ECDA;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
+h1{color:#C9A96A;font-size:1.4rem;margin:8px 0 2px;text-align:center}
+.sub{color:#8FB3B0;font-size:.85rem;margin-bottom:16px;text-align:center}
+#app{width:100%;max-width:680px}
+.back{color:#8FB3B0;font-size:.85rem;text-decoration:none;display:inline-block;margin-bottom:6px}
+.card{background:#1E4344;border-radius:16px;padding:20px 16px;box-shadow:0 4px 14px rgba(0,0,0,.25);margin-bottom:14px}
+.card h2{color:#C9A96A;font-size:1.05rem;margin-bottom:10px}
+label{display:block;font-size:.8rem;color:#8FB3B0;margin:10px 0 4px}
+input{width:100%;padding:12px;border:none;border-radius:10px;background:#0E2A2B;color:#F3ECDA;font-size:1rem;border:1.5px solid #2A5556}
+input:focus{outline:1.5px solid #C9A96A}
+button{padding:12px 16px;border:none;border-radius:10px;background:#C9A96A;color:#0E2A2B;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:12px}
+button.ghost{background:transparent;color:#8FB3B0;border:1.5px solid #2A5556;font-weight:400}
+button.small{padding:7px 10px;font-size:.8rem;margin-top:0}
+button.danger{background:transparent;color:#E57373;border:1.5px solid #8B2E2E;font-weight:400}
+.err{color:#E57373;font-size:.85rem;margin-top:8px;min-height:1.2rem}
+.okmsg{color:#7BC47F;font-size:.85rem;margin-top:8px;min-height:1.2rem}
+.classcard{background:#1E4344;border-radius:14px;padding:14px;margin-bottom:10px}
+.classcard .nm{font-weight:700;font-size:1.05rem}
+.classcard .meta{color:#8FB3B0;font-size:.8rem;margin-top:4px}
+.codebig{font-family:monospace;font-size:1.6rem;letter-spacing:.35em;color:#C9A96A;background:#0E2A2B;border:1.5px dashed #C9A96A;border-radius:12px;padding:12px;text-align:center;margin:10px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:8px}
+.tbl th{color:#8FB3B0;text-align:left;font-weight:400;font-size:.75rem;padding:6px 6px;border-bottom:1px solid #2A5556}
+.tbl td{padding:9px 6px;border-bottom:1px solid #16302f;vertical-align:top}
+.acc{font-weight:700;color:#7BC47F}
+.acc.mid{color:#C9A96A}
+.acc.low{color:#E57373}
+.pill{display:inline-block;background:#C9A96A;color:#0E2A2B;border-radius:20px;padding:2px 10px;font-weight:700;font-size:.8rem}
+.wk{color:#E57373;font-size:.95rem;direction:rtl}
+.weakwrap{direction:rtl;text-align:left}
+.hint{color:#8FB3B0;font-size:.8rem;margin-top:6px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row button{margin-top:0}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1E4344;color:#F3ECDA;padding:10px 18px;border-radius:20px;font-size:.85rem;box-shadow:0 4px 14px rgba(0,0,0,.4);opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+.loading{color:#8FB3B0;font-size:.85rem;padding:20px;text-align:center}
+</style>
+</head>
+<body>
+<h1>حروف — Teacher Dashboard</h1>
+<div class="sub">Track your madrasa students' Arabic letters progress · Al-Haqq Digital</div>
+<div id="app">
+  <a class="back" href="huruuf.html">← Back to the Huruuf game</a>
+  <div id="list">
+    <div class="card">
+      <h2>Create a class</h2>
+      <label>Class name</label>
+      <input id="c-name" placeholder="e.g. Weekend Beginners">
+      <label>Teacher name (optional — shown to parents)</label>
+      <input id="c-teacher" placeholder="e.g. Ustaadh Rahim">
+      <button id="btn-class">Create class</button>
+      <div class="okmsg" id="c-ok"></div>
+      <div class="err" id="c-err"></div>
+    </div>
+    <div class="card">
+      <h2>My classes</h2>
+      <div id="classes" class="loading">Loading…</div>
+    </div>
+  </div>
+
+  <div id="detail" style="display:none">
+    <div class="card">
+      <a class="back" id="d-back" href="javascript:void(0)">← All classes</a>
+      <h2 id="d-name"></h2>
+      <div class="hint" style="margin-top:0">Students join themselves: open the Huruuf game, tap <b>Madrasa</b>, enter this code and their name.</div>
+      <div class="codebig" id="d-code"></div>
+      <div class="row">
+        <button class="small" id="btn-copycode">Copy code</button>
+        <button class="small ghost" id="btn-refresh">Refresh</button>
+        <button class="small danger" id="btn-delclass" style="margin-left:auto">Delete class</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Add student</h2>
+      <label>Student name</label>
+      <input id="s-name" placeholder="e.g. Ibrahim">
+      <button id="btn-student">Add</button>
+      <div class="okmsg" id="s-ok"></div>
+      <div class="err" id="s-err"></div>
+    </div>
+    <div class="card">
+      <h2>Progress report</h2>
+      <div class="hint" style="margin-top:0">Accuracy colour: <span class="acc">75%+</span> <span class="acc mid">50–74%</span> <span class="acc low">below 50%</span> · "WhatsApp" copies a ready progress card for the parents.</div>
+      <div id="report" class="loading">Loading…</div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const API="https://studio-api-nqpm.onrender.com";
+let KEY=localStorage.getItem("ahq_teacher_key");
+let curClass=null, deletingClass=false, deletingStudent=null;
+
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+async function call(path,opts){
+  const r=await fetch(API+path,{...opts,headers:{"Content-Type":"application/json","X-Api-Key":KEY,...(opts&&opts.headers||{})}});
+  const d=await r.json().catch(()=>({}));
+  if(r.status===401&&d.error&&d.error.includes("key")){ // stale key — re-issue once
+    await signup();return call(path,opts);
+  }
+  if(!r.ok)throw new Error(d.error||("HTTP "+r.status));
+  return d;
+}
+async function signup(){
+  const email="teacher+"+Math.random().toString(36).slice(2,10)+"@alhaqq.app";
+  const r=await fetch(API+"/v1/developers/signup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email})});
+  const d=await r.json();
+  if(!d.key)throw new Error("Could not get an API key");
+  KEY=d.key;localStorage.setItem("ahq_teacher_key",KEY);
+}
+
+function showList(v){document.getElementById("list").style.display=v?"block":"none";document.getElementById("detail").style.display=v?"none":"block"}
+
+async function loadClasses(){
+  const box=document.getElementById("classes");box.className="loading";box.textContent="Loading…";
+  try{
+    const d=await call("/v1/classes");
+    box.className="";
+    if(!d.classes.length){box.innerHTML='<div class="hint">No classes yet — create your first class above.</div>';return}
+    box.innerHTML=d.classes.map(c=>`<div class="classcard"><div class="nm">${esc(c.name)}</div><div class="meta">${esc(c.teacher||"")}${c.teacher?" · ":""}${c.student_count} student${c.student_count===1?"":"s"} · code <b style="font-family:monospace">${esc(c.code)}</b></div><button class="small" data-open="${c.id}">Open</button></div>`).join("");
+    box.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openClass(b.dataset.open));
+  }catch(e){box.className="";box.innerHTML='<div class="err">'+esc(e.message)+"</div>"}
+}
+
+async function openClass(id){
+  try{
+    const d=await call("/v1/classes/"+id);
+    curClass=d;
+    document.getElementById("d-name").textContent=d.name+" — "+(d.students.length)+" student"+(d.students.length===1?"":"s");
+    document.getElementById("d-code").textContent=d.code;
+    showList(false);
+    renderReport({students:d.students.map(s=>({id:s.id,name:s.name,attempts:0,accuracy:null,mastered:0,weak_letters:[],last_active:null})),totals:{attempts:0,accuracy:null},class:{name:d.name,teacher:d.teacher}});
+    loadReport();
+  }catch(e){toast(e.message)}
+}
+
+async function loadReport(){
+  if(!curClass)return;
+  const box=document.getElementById("report");box.className="loading";box.textContent="Loading…";
+  try{
+    const d=await call("/v1/classes/"+curClass.id+"/report");
+    renderReport(d);
+  }catch(e){box.className="";box.innerHTML='<div class="err">'+esc(e.message)+"</div>"}
+}
+
+function accClass(a){return a===null?"":a>=75?"acc":a>=50?"acc mid":"acc low"}
+function parentCard(s,c){
+  const lines=[];
+  lines.push("Assalamu alaikum! 🌙");
+  lines.push("Progress update for *"+s.name+"* ("+c.class.name+"):");
+  lines.push(s.attempts? "Answered "+s.attempts+" letters · accuracy "+s.accuracy+"%":"No practice recorded yet");
+  if(s.mastered)lines.push("Letters mastered: "+s.mastered);
+  if(s.weak_letters&&s.weak_letters.length)lines.push("Needs practice: "+s.weak_letters.join(" "));
+  lines.push("Keep it up! 🌟");
+  if(c.class.teacher)lines.push("— "+c.class.teacher);
+  lines.push("(sent via Al-Haqq Digital)");
+  return lines.join("\n");
+}
+
+function renderReport(d){
+  const box=document.getElementById("report");box.className="";
+  if(!d.students.length){box.innerHTML='<div class="hint">No students yet. Add them above, or share the code — students can join themselves from the Huruuf game.</div>';return}
+  const t=d.totals;
+  box.innerHTML=`<div class="hint" style="margin-bottom:6px">Class total: ${t.attempts} answers${t.attempts?" · "+t.accuracy+"% accuracy":""}</div>
+  <table class="tbl"><tr><th>Student</th><th>Answers</th><th>Accuracy</th><th>Mastered</th><th>Weak letters</th><th></th></tr>`+
+  d.students.map(s=>{
+    const weak=(s.weak_letters||[]).join(" ");
+    return `<tr><td><b>${esc(s.name)}</b></td><td>${s.attempts}</td><td class="${accClass(s.accuracy)}">${s.accuracy===null?"—":s.accuracy+"%"}</td><td>${s.mastered}</td><td class="wk">${weak||"—"}</td>
+    <td><div class="row"><button class="small" data-card="${s.id}">WhatsApp</button><button class="small danger" data-dels="${s.id}">✕</button></div></td></tr>`;
+  }).join("")+"</table>";
+  box.querySelectorAll("[data-card]").forEach(b=>b.onclick=()=>{
+    const s=d.students.find(x=>x.id===b.dataset.card);
+    const msg=parentCard(s,d);
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(msg).then(()=>toast("Progress card copied — paste it to the parent on WhatsApp")).catch(()=>toast("Copy blocked — long-press to copy: "+msg.slice(0,60)))}
+    else toast("Copy not supported on this browser");
+  });
+  box.querySelectorAll("[data-dels]").forEach(b=>b.onclick=async()=>{
+    if(b.dataset.confirming!=="1"){b.dataset.confirming="1";b.textContent="Sure?";setTimeout(()=>{b.dataset.confirming="";b.textContent="✕"},2500);return}
+    try{await call("/v1/classes/"+curClass.id+"/students/"+b.dataset.dels,{method:"DELETE"});toast("Student removed");loadReport();const dd=await call("/v1/classes/"+curClass.id);curClass=dd}catch(e){toast(e.message)}
+  });
+}
+
+document.getElementById("btn-class").onclick=async()=>{
+  const name=document.getElementById("c-name").value.trim();
+  const teacher=document.getElementById("c-teacher").value.trim();
+  document.getElementById("c-ok").textContent="";document.getElementById("c-err").textContent="";
+  if(!name){document.getElementById("c-err").textContent="Enter a class name";return}
+  try{
+    const d=await call("/v1/classes",{method:"POST",body:JSON.stringify({name,teacher})});
+    document.getElementById("c-ok").textContent="Class created! Students join with the code "+d.code;
+    document.getElementById("c-name").value="";
+    loadClasses();
+  }catch(e){document.getElementById("c-err").textContent=e.message}
+};
+
+document.getElementById("btn-student").onclick=async()=>{
+  const name=document.getElementById("s-name").value.trim();
+  document.getElementById("s-ok").textContent="";document.getElementById("s-err").textContent="";
+  if(!name){document.getElementById("s-err").textContent="Enter a student name";return}
+  try{
+    await call("/v1/classes/"+curClass.id+"/students",{method:"POST",body:JSON.stringify({name})});
+    document.getElementById("s-ok").textContent="Added "+name;
+    document.getElementById("s-name").value="";
+    const d=await call("/v1/classes/"+curClass.id);curClass=d;
+    document.getElementById("d-name").textContent=d.name+" — "+d.students.length+" students";
+    loadReport();
+  }catch(e){document.getElementById("s-err").textContent=e.message}
+};
+
+document.getElementById("btn-copycode").onclick=()=>{
+  const c=curClass.code;
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(c).then(()=>toast("Code copied")).catch(()=>toast("Code: "+c));
+  else toast("Code: "+c);
+};
+document.getElementById("btn-refresh").onclick=loadReport;
+document.getElementById("d-back").onclick=()=>{curClass=null;showList(true);loadClasses()};
+document.getElementById("btn-delclass").onclick=async()=>{
+  const b=document.getElementById("btn-delclass");
+  if(!deletingClass){deletingClass=true;b.textContent="Confirm delete?";setTimeout(()=>{deletingClass=false;b.textContent="Delete class"},3000);return}
+  deletingClass=false;b.textContent="Delete class";
+  try{await call("/v1/classes/"+curClass.id,{method:"DELETE"});toast("Class deleted");curClass=null;showList(true);loadClasses()}catch(e){toast(e.message)}
+};
+
+(async function init(){
+  if(!KEY){try{await signup()}catch(e){document.getElementById("classes").innerHTML='<div class="err">'+esc(e.message)+"</div>";return}}
+  loadClasses();
+})();
+</script>
+</body>
+</html>
