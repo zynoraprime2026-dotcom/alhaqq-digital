@@ -78,7 +78,7 @@ h1{color:#C9A96A;font-size:1.4rem;margin:8px 0 2px}
 const L=[["ا","alif"],["ب","baa"],["ت","taa"],["ث","thaa"],["ج","jeem"],["ح","haa"],["خ","khaa"],["د","daal"],["ذ","dhaal"],["ر","raa"],["ز","zaay"],["س","seen"],["ش","sheen"],["ص","saad"],["ض","daad"],["ط","taa (emphatic)"],["ظ","dhaa (emphatic)"],["ع","ayn"],["غ","ghayn"],["ف","faa"],["ق","qaaf"],["ك","kaaf"],["ل","laam"],["م","meem"],["ن","noon"],["ه","haa"],["و","waaw"],["ي","yaa"]];
 const API="https://studio-api-nqpm.onrender.com";
 let score=0,streak=0,cur=0,ans="";
-const MAD=JSON.parse(localStorage.getItem("huruuf_student")||"null");
+let MAD=JSON.parse(localStorage.getItem("huruuf_student")||"null");
 function madKey(){return localStorage.getItem("huruuf_key")}
 async function madSignup(){
   const email="student+"+Math.random().toString(36).slice(2,10)+"@alhaqq.app";
@@ -108,7 +108,7 @@ document.getElementById("jJoin").onclick=async()=>{
     const r=await fetch(API+"/v1/join",{method:"POST",headers:{"Content-Type":"application/json","X-Api-Key":madKey()},body:JSON.stringify({code,name})});
     const d=await r.json();
     if(!r.ok)throw new Error(d.error||"Could not join");
-    MAD.sid=d.student_id;MAD.name=d.student_name;MAD.cls=d.class_name;
+    MAD={sid:d.student_id,name:d.student_name,cls:d.class_name};
     localStorage.setItem("huruuf_student",JSON.stringify(MAD));
     document.getElementById("joinbar").style.display="none";
     showBadge(true);
