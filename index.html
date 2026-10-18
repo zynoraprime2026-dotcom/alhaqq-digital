@@ -392,7 +392,7 @@ Operated by Ya Hayul Quayum Ventures · Reg. BN281640422<br>
     input.value='';add('zp-user',q);hist.push({role:'user',content:q});
     var t=document.createElement('div');t.className='zp-m zp-bot zp-typing';
     t.innerHTML='<span></span><span></span><span></span>';msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
-    fetch('https://noor-api-zynora1.vercel.app/api/ai/chat',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'noor_387660dd47234c8d6e2972fd46a2c96f'},
+    fetch('https://noor-api-zynora1.vercel.app/api/ai/chat',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'noor_387660dd8124e1d0eb173f4b1d487b45'},
       body:JSON.stringify({system:SYS,messages:hist.slice(-12),maxTokens:900})})
       .then(function(r){return r.json()})
       .then(function(d){
