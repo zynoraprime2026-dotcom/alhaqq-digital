@@ -166,6 +166,29 @@
 .share-top .share-btn{padding:10px 20px;font-size:.85rem}
 .wa-float{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:#1d7a52;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.6rem;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:60;transition:.25s}
   .wa-float:hover{transform:scale(1.1)}
+
+/* ===== Zynora Prime chat widget ===== */
+#zp-fab{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;border:none;cursor:pointer;z-index:9999;background:linear-gradient(135deg,var(--gold),#b8912a);color:#1a1405;font-size:26px;box-shadow:0 6px 22px rgba(0,0,0,.45);transition:transform .2s}
+#zp-fab:hover{transform:scale(1.08)}
+#zp-panel{position:fixed;right:18px;bottom:86px;width:340px;max-width:calc(100vw - 30px);height:480px;max-height:70vh;background:var(--bg2);border:1px solid var(--line);border-radius:16px;display:none;flex-direction:column;z-index:9999;box-shadow:0 14px 44px rgba(0,0,0,.6);overflow:hidden}
+#zp-panel.open{display:flex}
+#zp-head{background:linear-gradient(135deg,#0f2a1f,#0c2018);padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+#zp-head .zp-av{width:34px;height:34px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:17px;color:#1a1405;flex-shrink:0}
+#zp-head b{color:var(--gold2);font-size:15px;display:block}
+#zp-head small{color:var(--muted);font-size:11px}
+#zp-x{margin-left:auto;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1}
+#zp-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.zp-m{max-width:85%;padding:9px 13px;border-radius:12px;font-size:13.5px;line-height:1.45;white-space:pre-wrap;word-wrap:break-word}
+.zp-bot{background:var(--card);color:var(--cream);border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.zp-user{background:var(--green);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.zp-typing{display:flex;gap:4px;padding:9px 13px}
+.zp-typing span{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:zp-b 1.2s infinite}
+.zp-typing span:nth-child(2){animation-delay:.2s}.zp-typing span:nth-child(3){animation-delay:.4s}
+@keyframes zp-b{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+#zp-form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:var(--card)}
+#zp-in{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:20px;color:var(--cream);padding:9px 14px;font-size:13.5px;outline:none;font-family:inherit}
+#zp-in:focus{border-color:var(--gold)}
+#zp-send{width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;background:var(--gold);color:#1a1405;font-size:16px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -349,6 +372,41 @@ Operated by Ya Hayul Quayum Ventures · Reg. BN281640422<br>
 <a class="wa-float" href="https://wa.me/233541821537" title="Chat on WhatsApp">💬</a>
 
 <script>
+/* ===== Zynora Prime assistant ===== */
+(function(){
+  var fab=document.getElementById('zp-fab'),panel=document.getElementById('zp-panel'),
+      msgs=document.getElementById('zp-msgs'),form=document.getElementById('zp-form'),
+      input=document.getElementById('zp-in'),opened=false;
+  var SYS="You are Zynora Prime, the AI assistant on the Al-Haqq Digital website (alhaqq-digital.vercel.app), Tarkwa, Ghana. Answer in short, warm, plain English (max 120 words). Use *bold* sparingly. FACTS: Al-Haqq Digital is a Tarkwa-based digital company offering website design & development, mobile apps, business automation (AI agents like this one), the Al-Haqq Digital Academy (computer training: web dev, graphic design, digital skills), a phone accessories & electricals shop, and an Islamic madrasa (Al-Haqq Digital Madrasa). The portfolio shows 12 projects; visitors can buy shop items via WhatsApp at +233 54 182 1537. You do not know exact prices, fees, schedules or dates — invite people to WhatsApp +233 54 182 1537 for those, or to check the Shop, Portfolio, Academy and Madrasa pages on the site. Never invent prices, dates or policies.";
+  var hist=[];
+  function add(cls,text){var d=document.createElement('div');d.className='zp-m '+cls;d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;}
+  fab.addEventListener('click',function(){
+    var open=panel.classList.toggle('open');
+    if(open&&!opened){opened=true;add('zp-bot',"Hi! I'm Zynora Prime \u2B50\nAsk me about our services, portfolio, academy, shop or madrasa \u2014 I'm here to help.");}
+    if(open)input.focus();
+  });
+  document.getElementById('zp-x').addEventListener('click',function(){panel.classList.remove('open');});
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var q=input.value.trim();if(!q)return;
+    input.value='';add('zp-user',q);hist.push({role:'user',content:q});
+    var t=document.createElement('div');t.className='zp-m zp-bot zp-typing';
+    t.innerHTML='<span></span><span></span><span></span>';msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
+    fetch('https://noor-api-zynora1.vercel.app/api/ai/chat',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':'noor_387660dd47234c8d6e2972fd46a2c96f'},
+      body:JSON.stringify({system:SYS,messages:hist.slice(-12),maxTokens:900})})
+      .then(function(r){return r.json()})
+      .then(function(d){
+        t.remove();
+        var a=(d.text||d.reply||"").replace(/\*\*/g,'*');
+        if(a.length>900)a=a.slice(0,900)+'\u2026';
+        add('zp-bot',a||"I'm having trouble right now \u2014 please WhatsApp us on +233 54 182 1537.");
+        hist.push({role:'assistant',content:a});
+      })
+      .catch(function(){t.remove();add('zp-bot',"Connection hiccup \u2014 please try again, or WhatsApp +233 54 182 1537.");});
+  });
+})();
+</script>
+<script>
 function doShare(btn){
   if(navigator.share){
     navigator.share({title:'Al-Haqq Digital',text:'Web & AI Services · Phone Accessories · Electricals — Tarkwa, Ghana',url:'https://alhaqq-digital.vercel.app'}).catch(function(){});
@@ -366,5 +424,21 @@ function showCat(id, el){
   el.classList.add('active');
 }
 </script>
+
+<!-- ===== Zynora Prime assistant ===== -->
+<button id="zp-fab" aria-label="Chat with Zynora Prime">&#128172;</button>
+<div id="zp-panel" role="dialog" aria-label="Zynora Prime chat assistant">
+  <div id="zp-head">
+    <div class="zp-av">&#9889;</div>
+    <div><b>Zynora Prime</b><small>AI assistant &#183; online</small></div>
+    <button id="zp-x" aria-label="Close chat">&#215;</button>
+  </div>
+  <div id="zp-msgs"></div>
+  <form id="zp-form">
+    <input id="zp-in" placeholder="Ask me anything..." autocomplete="off" maxlength="500"/>
+    <button id="zp-send" type="submit" aria-label="Send">&#10148;</button>
+  </form>
+</div>
+
 </body>
 </html>
