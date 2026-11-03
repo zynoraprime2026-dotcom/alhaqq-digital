@@ -95,6 +95,14 @@
   .card .ic{font-size:2rem;margin-bottom:14px}
   .card h3{font-size:1.05rem;margin-bottom:10px;color:var(--gold2)}
   .card p{font-size:.88rem;color:var(--muted);font-weight:300}
+  .app-card{display:flex;flex-direction:column}
+  .app-card p{flex:1}
+  .app-tag{display:inline-block;font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);
+    border:1px solid var(--line);border-radius:20px;padding:3px 10px;margin-bottom:14px;align-self:flex-start}
+  .app-link{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);color:var(--gold);font-weight:600;
+    font-size:.85rem;text-decoration:none;display:flex;align-items:center;justify-content:space-between;transition:.2s}
+  .app-link:hover{color:var(--gold2)}
+  .apps-note{text-align:center;color:var(--muted);font-size:.85rem;font-weight:300;max-width:620px;margin:-30px auto 44px}
   /* WHY */
   .why{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
   .why .card{text-align:center}
@@ -204,6 +212,7 @@
       <a href="#work">Our Work</a>
       <a href="#shop">Shop</a>
       <a href="#why">Why Us</a>
+      <a href="#apps">Live Apps</a>
       <a href="#pricing">Pricing</a>
       <a href="#contact">Contact</a>
     </div>
@@ -345,6 +354,37 @@
     <div class="story">
       <p><b>Al-Haqq Digital</b> was founded in Tarkwa with one conviction: our mosques, schools and Muslim businesses deserve world-class technology at community prices — built by people who understand our values.<br><br>Today we build modern websites and AI tools, and supply quality phone accessories and electricals to homes and businesses from our Tarkwa base, across Ghana — with honest prices, real support, and barakah in every transaction.</p>
       <p class="ar">وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ<br><span style="font-size:.75rem;color:#a8c0b0">"And my success is only by Allah." — Hud 11:88</span></p>
+    </div>
+  </div>
+</section>
+
+<section id="apps">
+  <div class="wrap">
+    <div class="kicker">Live &amp; Running</div>
+    <h2>Apps We've Already Built</h2>
+    <p class="apps-note">Not mockups. These are live on the internet right now, built here in Ghana — the same work goes into your masjid, school or business.</p>
+    <div class="grid g3">
+      <div class="card app-card">
+        <span class="app-tag">Live demo</span>
+        <div class="ic">🕌</div>
+        <h3>Al-Haqq WA — Masjid WhatsApp Assistant</h3>
+        <p>Replies to your community on WhatsApp day and night: prayer times, school fees, events, directions. The imam stops answering the same question fifty times.</p>
+        <a class="app-link" href="https://alhaqq-wa.vercel.app" target="_blank" rel="noopener">Open the demo <span>&rarr;</span></a>
+      </div>
+      <div class="card app-card">
+        <span class="app-tag">Live API</span>
+        <div class="ic">📖</div>
+        <h3>Ilm API — Qur'an, Hadith &amp; Fiqh Data</h3>
+        <p>Word-by-word Qur'an with translations in 15 languages, hadith collections, tafsir and sourced fiqh rulings. The engine behind study tools and madrasa learning apps.</p>
+        <a class="app-link" href="https://ilm-api.vercel.app" target="_blank" rel="noopener">Read the documentation <span>&rarr;</span></a>
+      </div>
+      <div class="card app-card">
+        <span class="app-tag">Demo on request</span>
+        <div class="ic">🎨</div>
+        <h3>Portfolio Builder — Artists &amp; Creatives</h3>
+        <p>Build a portfolio, add work by image link or with AI generation, publish it and share one clean gallery link. No designer, no monthly fee, no coding. Walkthrough on request.</p>
+        <a class="app-link" href="https://wa.me/233541821537?text=Hello%20Al-Haqq%2C%20show%20me%20the%20Portfolio%20Builder%20demo">Ask on WhatsApp <span>&rarr;</span></a>
+      </div>
     </div>
   </div>
 </section>
